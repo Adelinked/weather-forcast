@@ -20,7 +20,7 @@ const localTime = (timezone) => {
 };
 
 export async function getServerSideProps(context) {
-  const data_source = `http://api.openweathermap.org/data/2.5/weather?q=${globalCity}&units=metric&appid=${apiKey}`;
+  const data_source = `https://api.openweathermap.org/data/2.5/weather?q=${globalCity}&units=metric&appid=${apiKey}`;
   const res = await fetch(data_source);
   const data = await res.json();
   if (res.status !== 200) {
@@ -79,7 +79,7 @@ export default function Home({ initialData }) {
 
   async function getCityWeather() {
     if (!city) return;
-    const data_source = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    const data_source = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
     const res = await fetch(data_source);
     const data = await res.json();
     if (res.status == 200) {
@@ -90,7 +90,7 @@ export default function Home({ initialData }) {
   }
 
   async function getUserCity(position) {
-    const data_source = `http://api.openweathermap.org/geo/1.0/reverse?lat=${position.lat}&lon=${position.lon}&limit=1&appid=${apiKey}`;
+    const data_source = `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.lat}&lon=${position.lon}&limit=1&appid=${apiKey}`;
     const res = await fetch(data_source);
     const data = await res.json();
     if (res.status == 200) {
@@ -102,7 +102,7 @@ export default function Home({ initialData }) {
 
   async function getCityPosition() {
     if (!city) return;
-    const dataSource = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+    const dataSource = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
     const res = await fetch(dataSource);
     const data = await res.json();
     if (res.status == 200) {
