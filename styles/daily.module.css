@@ -1,0 +1,45 @@
+.dailyDiv {
+  border-left: 1px solid var(--color-blue);
+}
+.dayForc {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  margin-left: 5px;
+  width: 100%;
+  display: flex;
+}
+.date {
+  width: 25%;
+}
+.tempDiv {
+  position: relative;
+  font-weight: 600;
+  padding-left: 5px;
+  width: 20%;
+}
+.temp {
+  font-size: 1rem;
+  margin-right: 20px;
+}
+.tempMin,
+.tempMax {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 0.6rem;
+}
+.tempMin,
+.tempMax {
+  transform: translate(25px, 10px);
+  -ms-transform: translate(25px, 10px);
+}
+.tempMax {
+  font-size: 0.5rem;
+  transform: translate(25px, -5px);
+  -ms-transform: translate(25px, -5px);
+}
+.weather {
+}
+.loading {
+  margin: 100px;
+}
