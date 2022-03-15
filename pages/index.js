@@ -5,7 +5,7 @@ import DailyForcast from "../components/DailyForcast";
 import HourlyForcast from "../components/HourlyForcast";
 import Head from "next/head";
 
-const apiKey = "6410239bfef287aedce6fe6dbc296313";
+const apiKey = process.env.OPENWEAHER_API_KEY;
 let globalCity = "New York";
 let lat = "40.7127281";
 let lon = "-74.0060152";
@@ -24,7 +24,6 @@ export async function getServerSideProps(context) {
   const res = await fetch(data_source);
   const data = await res.json();
   if (res.status !== 200) {
-    setForcastData("error");
     throw new Error(data.message);
   }
   return {
@@ -46,7 +45,7 @@ export default function Home({ initialData }) {
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
-        getUserCity({
+        getUserCityServer({
           lat: position.coords.latitude,
           lon: position.coords.longitude,
         });
@@ -55,16 +54,16 @@ export default function Home({ initialData }) {
   }, []);
 
   useEffect(() => {
-    getCityWeather();
+    getCityWeatherServer();
     setForcastData("Loading");
   }, [city]);
 
   useEffect(() => {
-    getCityPosition();
+    getCityPositionServer();
   }, [city]);
 
   useEffect(() => {
-    getPositionWeather();
+    getPositionWeatherServer();
   }, [cityPos]);
   const handleChange = useCallback(
     (event) => {
@@ -77,9 +76,9 @@ export default function Home({ initialData }) {
     [city]
   );
 
-  async function getCityWeather() {
+  async function getCityWeatherServer() {
     if (!city) return;
-    const data_source = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+    const data_source = `/api/cityweather/weather?city=${city}`;
     const res = await fetch(data_source);
     const data = await res.json();
     if (res.status == 200) {
@@ -89,8 +88,9 @@ export default function Home({ initialData }) {
     }
   }
 
-  async function getUserCity(position) {
-    const data_source = `https://api.openweathermap.org/geo/1.0/reverse?lat=${position.lat}&lon=${position.lon}&limit=1&appid=${apiKey}`;
+  async function getUserCityServer(position) {
+    if (!position) return;
+    const data_source = `/api/city/city?lat=${position.lat}&lon=${position.lon}`;
     const res = await fetch(data_source);
     const data = await res.json();
     if (res.status == 200) {
@@ -100,9 +100,9 @@ export default function Home({ initialData }) {
     }
   }
 
-  async function getCityPosition() {
+  async function getCityPositionServer() {
     if (!city) return;
-    const dataSource = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
+    const dataSource = `/api/position/position?city=${city}`;
     const res = await fetch(dataSource);
     const data = await res.json();
     if (res.status == 200) {
@@ -112,9 +112,9 @@ export default function Home({ initialData }) {
     }
   }
 
-  async function getPositionWeather() {
+  async function getPositionWeatherServer() {
     if (!cityPos) return;
-    const dataSource = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityPos.lat}&lon=${cityPos.lon}&exclude=minutely,alerts&units=metric&appid=${apiKey}`;
+    const dataSource = `/api/weather/weather?lat=${cityPos.lat}&lon=${cityPos.lon}`;
     const res = await fetch(dataSource);
     const data = await res.json();
     if (res.status !== 200) {
@@ -137,10 +137,23 @@ export default function Home({ initialData }) {
   return (
     <>
       <Head>
-        <title>Weather Forcast app</title>
+        <title>Weather Forcast App</title>
       </Head>
       <main className={styles.main}>
-        <h1 className={styles.title}>Weather forcast</h1>
+        <div className={styles.title}>
+          <h1>Weather forcast</h1>
+          <p className={styles.openWeather}>
+            Data source:
+            <a
+              className={styles.owLink}
+              href="https://openweathermap.org/api"
+              target="_blank"
+            >
+              Open Weather API's
+            </a>
+          </p>
+        </div>
+
         <div className={styles.rowContainer}>
           <div className={styles.mainContainer}>
             <CityInput city={data.name} handleChange={handleChange} />

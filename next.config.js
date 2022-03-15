@@ -1,5 +1,5 @@
 module.exports = {
   env: {
-    OPENWEAHERAPI_KEY: process.env.OPENWEAHERAPI_KEY,
+    OPENWEAHER_API_KEY: process.env.OPENWEAHER_API_KEY,
   },
 };
