@@ -68,3 +68,5 @@ Here is a list of the technologies used in this project.
 4. [Open Weather API](https://openweathermap.org/api) - OpenWeather provides historical, current and forecasted weather data via light-speed APIs.
 
 5. [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API) - The Geolocation API is used to retrieve the user's location, so that it can for example be used to display their position using a mapping API.
+
+you can see the application deployed here : [Deployemen with Vercel](weather-forcast-iota.vercel.app)
