@@ -29,7 +29,15 @@ or using `yarn`
 yarn install
 ```
 
-3. **Start the app** by running the following command. The app will run on port 3000 except that port is already in use.
+3. **Create a `.env` file** in the root of the new directory with the following content.
+
+```ini
+
+OPENWEAHER_API_KEY =YOUR_OPEN_WEATHER_API_KEY
+
+```
+
+4. **Start the app** by running the following command. The app will run on port 3000 except that port is already in use.
 
 ```sh
 npm run dev
