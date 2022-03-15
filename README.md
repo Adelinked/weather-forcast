@@ -3,7 +3,7 @@
 This project contains the source code for a very simple realtime weather focast application.
 
 Here is a screenshot of the application.
-![App Screenshot](https://i.postimg.cc/65YG1wQM/Screenshot.png)
+![App Screenshot](https://i.postimg.cc/sxd65NGZ/Screenshot.png)
 
 ## Getting Started
 
