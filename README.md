@@ -49,6 +49,12 @@ For `production`
 npm start
 ```
 
+after building with
+
+```sh
+npm run build
+```
+
 ## Built With
 
 Here is a list of the technologies used in this project.
