@@ -29,7 +29,7 @@ or using `yarn`
 yarn install
 ```
 
-3. **Create a `.env` file** in the root of the new directory with the following content.
+3. **Create a `.env.local` file** in the root of the new directory with the following content.
 
 ```ini
 
