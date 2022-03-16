@@ -78,7 +78,7 @@ export default function Home({ initialData }) {
 
   async function getCityWeatherServer() {
     if (!city) return;
-    const data_source = `/api/cityweather/weather?city=${city}`;
+    const data_source = `/api/cityweather?city=${city}`;
     const res = await fetch(data_source);
     const data = await res.json();
     if (res.status == 200) {
@@ -90,7 +90,7 @@ export default function Home({ initialData }) {
 
   async function getUserCityServer(position) {
     if (!position) return;
-    const data_source = `/api/city/city?lat=${position.lat}&lon=${position.lon}`;
+    const data_source = `/api/city?lat=${position.lat}&lon=${position.lon}`;
     const res = await fetch(data_source);
     const data = await res.json();
     if (res.status == 200) {
@@ -102,7 +102,7 @@ export default function Home({ initialData }) {
 
   async function getCityPositionServer() {
     if (!city) return;
-    const dataSource = `/api/position/position?city=${city}`;
+    const dataSource = `/api/position?city=${city}`;
     const res = await fetch(dataSource);
     const data = await res.json();
     if (res.status == 200) {
@@ -114,7 +114,7 @@ export default function Home({ initialData }) {
 
   async function getPositionWeatherServer() {
     if (!cityPos) return;
-    const dataSource = `/api/weather/weather?lat=${cityPos.lat}&lon=${cityPos.lon}`;
+    const dataSource = `/api/weather?lat=${cityPos.lat}&lon=${cityPos.lon}`;
     const res = await fetch(dataSource);
     const data = await res.json();
     if (res.status !== 200) {
