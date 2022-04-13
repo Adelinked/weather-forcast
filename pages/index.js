@@ -45,7 +45,7 @@ export default function Home({ initialData }) {
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position) {
-        getUserCityServer({
+        getUserCity({
           lat: position.coords.latitude,
           lon: position.coords.longitude,
         });
@@ -54,16 +54,16 @@ export default function Home({ initialData }) {
   }, []);
 
   useEffect(() => {
-    getCityWeatherServer();
+    getCityWeather();
     setForcastData("Loading");
   }, [city]);
 
   useEffect(() => {
-    getCityPositionServer();
+    getCityPosition();
   }, [city]);
 
   useEffect(() => {
-    getPositionWeatherServer();
+    getPositionWeather();
   }, [cityPos]);
   const handleChange = useCallback(
     (event) => {
@@ -76,7 +76,7 @@ export default function Home({ initialData }) {
     [city]
   );
 
-  async function getCityWeatherServer() {
+  async function getCityWeather() {
     if (!city) return;
     const data_source = `/api/cityweather?city=${city}`;
     const res = await fetch(data_source);
@@ -88,7 +88,7 @@ export default function Home({ initialData }) {
     }
   }
 
-  async function getUserCityServer(position) {
+  async function getUserCity(position) {
     if (!position) return;
     const data_source = `/api/city?lat=${position.lat}&lon=${position.lon}`;
     const res = await fetch(data_source);
@@ -100,7 +100,7 @@ export default function Home({ initialData }) {
     }
   }
 
-  async function getCityPositionServer() {
+  async function getCityPosition() {
     if (!city) return;
     const dataSource = `/api/position?city=${city}`;
     const res = await fetch(dataSource);
@@ -112,7 +112,7 @@ export default function Home({ initialData }) {
     }
   }
 
-  async function getPositionWeatherServer() {
+  async function getPositionWeather() {
     if (!cityPos) return;
     const dataSource = `/api/weather?lat=${cityPos.lat}&lon=${cityPos.lon}`;
     const res = await fetch(dataSource);
