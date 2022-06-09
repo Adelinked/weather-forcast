@@ -54,12 +54,40 @@ export default function Home({ initialData }) {
   }, []);
 
   useEffect(() => {
-    getCityWeather();
+    // getCityWeather();
+    if (!city) return;
+    let controller = new AbortController();
+    const data_source = `/api/cityweather?city=${city}`;
+    (async () => {
+      const res = await fetch(data_source, { signal: controller.signal });
+      const data = await res.json();
+      if (res.status == 200) {
+        setData(JSON.parse(JSON.stringify(data)));
+        controller = null;
+      } else {
+        setData(initialData);
+      }
+    })();
     setForcastData("Loading");
+    return () => controller?.abort();
   }, [city]);
 
   useEffect(() => {
-    getCityPosition();
+    // getCityPosition();
+    if (!city) return;
+    let controller = new AbortController();
+    const dataSource = `/api/position?city=${city}`;
+    (async () => {
+      const res = await fetch(dataSource);
+      const data = await res.json();
+      if (res.status == 200) {
+        setCityPos({ lat: data[0].lat, lon: data[0].lon });
+        controller = null;
+      } else {
+        setCityPos({ lat: lat, lon: lon });
+      }
+    })();
+    return () => controller?.abort();
   }, [city]);
 
   useEffect(() => {
@@ -75,7 +103,7 @@ export default function Home({ initialData }) {
     },
     [city]
   );
-
+  /*
   async function getCityWeather() {
     if (!city) return;
     const data_source = `/api/cityweather?city=${city}`;
@@ -86,7 +114,7 @@ export default function Home({ initialData }) {
     } else {
       setData(initialData);
     }
-  }
+  }*/
 
   async function getUserCity(position) {
     if (!position) return;
@@ -99,18 +127,23 @@ export default function Home({ initialData }) {
       setCity("New York");
     }
   }
-
+  /*
   async function getCityPosition() {
     if (!city) return;
+    let controller = new AbortController();
     const dataSource = `/api/position?city=${city}`;
-    const res = await fetch(dataSource);
-    const data = await res.json();
-    if (res.status == 200) {
-      setCityPos({ lat: data[0].lat, lon: data[0].lon });
-    } else {
-      setCityPos({ lat: lat, lon: lon });
-    }
-  }
+    (async () => {
+      const res = await fetch(dataSource);
+      const data = await res.json();
+      if (res.status == 200) {
+        setCityPos({ lat: data[0].lat, lon: data[0].lon });
+        controller = null;
+      } else {
+        setCityPos({ lat: lat, lon: lon });
+      }
+    })();
+    return () => controller?.abort();
+  }*/
 
   async function getPositionWeather() {
     if (!cityPos) return;
